@@ -136,3 +136,12 @@ def init_db():
     except sqlite3.Error:
         logger.exception("Falha ao inicializar banco de dados.")
         raise
+        # Tabela para reset de senha
+        conn.execute('''CREATE TABLE IF NOT EXISTS password_resets (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL,
+            token TEXT NOT NULL UNIQUE,
+            expires_at TIMESTAMP NOT NULL,
+            used INTEGER DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )''')

@@ -74,3 +74,39 @@ if st.sidebar.button("🚪 Logout"):
     logout()
 
 rodape()
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import sqlite3
+
+DB_PATH = "data/fitcontrol.db"  # ajuste aqui se o nome for diferente
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+def conectar():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+@app.get("/alunos")
+def listar_alunos():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, nome, telefone, mensalidade, nivel, objetivo, ativo
+        FROM clientes
+        ORDER BY nome
+    """)
+
+    alunos = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+
+    return alunos

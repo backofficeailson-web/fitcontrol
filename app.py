@@ -16,42 +16,42 @@ from src.pages.pdf_page import pagina_pdf
 st.set_page_config(page_title="FitControl", page_icon="🟢", layout="wide")
 aplicar_css()
 
-# ============================================
-# FORCE ADMIN USER - REMOVER APÓS PRIMEIRO LOGIN
-# ============================================
+# Inicializa banco de dados
 if "db_iniciado" not in st.session_state:
     init_db()
     st.session_state.db_iniciado = True
 
-# Recria o usuário admin sempre (garantia)
-admin = execute_query("SELECT id FROM usuarios WHERE username = 'admin'", fetchone=True)
-if admin:
-    execute_query("DELETE FROM usuarios WHERE username = 'admin'")
-execute_query(
-    "INSERT INTO usuarios (username, senha_hash, nome) VALUES (?, ?, ?)",
-    ('admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'Administrador')
-)
-# ============================================
-
+# Inicializa sessão
 if "logado" not in st.session_state:
     st.session_state.logado = False
 
+# Tela de login
 if not st.session_state.logado:
     tela_login()
     st.stop()
 
+# Atualiza atividade
 st.session_state.ultima_atividade = datetime.now()
 verificar_timeout()
 
+# Backup diário
 hoje = datetime.now().strftime("%Y-%m-%d")
 if st.session_state.get("ultimo_backup") != hoje:
     backup_db()
     st.session_state.ultimo_backup = hoje
 
+# Interface principal
 logo_sidebar()
+
 menu = st.sidebar.radio("📋 MENU", [
-    "Dashboard", "Alunos", "Avaliação Física", "Avaliação Postural",
-    "Fotos", "Treino", "Pagamentos", "Relatório PDF"
+    "Dashboard",
+    "Alunos",
+    "Avaliação Física",
+    "Avaliação Postural",
+    "Fotos",
+    "Treino",
+    "Pagamentos",
+    "Relatório PDF"
 ])
 
 paginas = {
@@ -64,8 +64,11 @@ paginas = {
     "Pagamentos": pagina_pagamentos,
     "Relatório PDF": pagina_pdf,
 }
+
+# Executa a página selecionada
 paginas[menu]()
 
+# Botão de logout
 if st.sidebar.button("🚪 Logout"):
     from src.core.auth import logout
     logout()

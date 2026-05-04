@@ -9,18 +9,18 @@ os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(LOG_DIR, exist_ok=True)
 
-# Cores do tema
-VERDE_HULK = "#2ECC40"
-VERDE_ESCURO = "#0D3B0D"
-VERDE_CLARO = "#7CFC00"
-ROXO_HULK = "#6A1B9A"
-ROXO_ESCURO = "#3D0F5C"
-PRETO = "#0A0A0A"
-CINZA_ESCURO = "#1E1E1E"
-CINZA_MEDIO = "#2D2D2D"
-BRANCO = "#FFFFFF"
-AMARELO_ALERTA = "#FFD700"
-VERMELHO = "#FF4136"
+# Tema Dark Minimalista
+PRIMARY = "#6B7280"         # Cinza médio
+PRIMARY_LIGHT = "#9CA3AF"   # Cinza claro
+BG_DARK = "#111111"         # Fundo preto puro
+BG_CARD = "#1A1A1A"         # Cards
+TEXT_PRIMARY = "#E5E7EB"    # Texto principal
+TEXT_SECONDARY = "#9CA3AF"  # Texto secundário
+ACCENT = "#22D3EE"          # Ciano (destaques)
+SUCCESS = "#4ADE80"         # Verde sucesso
+WARNING = "#FBBF24"         # Amarelo alerta
+DANGER = "#F87171"          # Vermelho erro
+BORDER = "#2D2D2D"          # Bordas sutis
 
 # Admin
 ADMIN_USUARIO = "admin"

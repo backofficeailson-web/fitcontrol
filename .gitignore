@@ -2,16 +2,13 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
 .env
 .venv/
 venv/
-
 data/*
 !data/.gitkeep
 uploads/*
 !uploads/.gitkeep
 logs/*
 !logs/.gitkeep
-
 *.db

@@ -36,25 +36,19 @@ if st.session_state.get("ultimo_backup") != hoje:
 
 logo_sidebar()
 menu = st.sidebar.radio("📋 MENU", [
-    "Dashboard",
-    "Alunos",
-    "Avaliação Física",
-    "Avaliação Postural",
-    "Fotos",
-    "Treino",
-    "Pagamentos",
-    "Relatório PDF"
+    "Dashboard", "Alunos", "Avaliação Física", "Avaliação Postural",
+    "Fotos", "Treino", "Pagamentos", "Relatório PDF"
 ])
 
 paginas = {
-    "Dashboard":          mostrar_dashboard,
-    "Alunos":             pagina_alunos,
-    "Avaliação Física":   pagina_avaliacao_fisica,
+    "Dashboard": mostrar_dashboard,
+    "Alunos": pagina_alunos,
+    "Avaliação Física": pagina_avaliacao_fisica,
     "Avaliação Postural": pagina_avaliacao_postural,
-    "Fotos":              pagina_fotos,
-    "Treino":             pagina_geracao_treino,
-    "Pagamentos":         pagina_pagamentos,
-    "Relatório PDF":      pagina_pdf,
+    "Fotos": pagina_fotos,
+    "Treino": pagina_geracao_treino,
+    "Pagamentos": pagina_pagamentos,
+    "Relatório PDF": pagina_pdf,
 }
 paginas[menu]()
 

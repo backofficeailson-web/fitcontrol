@@ -1,4 +1,3 @@
-# src/pages/login_page.py
 import streamlit as st
 import os
 from datetime import datetime
@@ -8,24 +7,25 @@ def tela_login():
     st.markdown("""
     <style>
         .stApp {
-            background: linear-gradient(135deg, #0A0F0A 0%, #0D1A0D 100%);
+            background: #111111;
         }
-        .login-container {
-            max-width: 400px;
-            margin: 0 auto;
+        .login-box {
+            max-width: 380px;
+            margin: 60px auto;
             padding: 40px 30px;
-            background: rgba(15, 30, 15, 0.9);
-            border: 2px solid #2ECC40;
-            border-radius: 16px;
-            box-shadow: 0 0 30px rgba(46, 204, 64, 0.2);
+            background: #1A1A1A;
+            border: 1px solid #2D2D2D;
+            border-radius: 12px;
             text-align: center;
         }
-        .login-container h1 {
-            color: #7CFC00;
+        .login-box h1 {
+            color: #E5E7EB;
+            font-size: 1.5rem;
             margin-bottom: 5px;
         }
-        .login-container p {
-            color: #AAFFAA;
+        .login-box p {
+            color: #9CA3AF;
+            font-size: 0.85rem;
             margin-bottom: 25px;
         }
     </style>
@@ -33,13 +33,13 @@ def tela_login():
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.markdown('<div class="login-container">', unsafe_allow_html=True)
+        st.markdown('<div class="login-box">', unsafe_allow_html=True)
         
         logo_path = "assets/logo.png" if os.path.exists("assets/logo.png") else None
         if logo_path:
-            st.image(logo_path, width=200)
+            st.image(logo_path, width=180)
         else:
-            st.markdown("<span style='font-size:4rem;'>🟢</span>", unsafe_allow_html=True)
+            st.markdown("<span style='font-size:3rem;'>⚫</span>", unsafe_allow_html=True)
         
         st.markdown("<h1>FitControl</h1>", unsafe_allow_html=True)
         st.markdown("<p>Sistema de Gestão Fitness</p>", unsafe_allow_html=True)
@@ -47,7 +47,7 @@ def tela_login():
         usuario = st.text_input("Usuário", key="login_usuario")
         senha = st.text_input("Senha", type="password", key="login_senha")
         
-        if st.button("Entrar", use_container_width=True):
+        if st.button("Entrar", use_container_width=True, type="primary"):
             if not usuario or not senha:
                 st.warning("Preencha todos os campos.")
                 return

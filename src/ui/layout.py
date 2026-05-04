@@ -1,165 +1,261 @@
-# src/ui/layout.py
 import streamlit as st
+from src.core.config import BG_DARK, BG_CARD, PRIMARY, PRIMARY_LIGHT, ACCENT, SUCCESS, WARNING, DANGER, TEXT_PRIMARY, TEXT_SECONDARY, BORDER
 
 def aplicar_css():
-    st.markdown("""
+    st.markdown(f"""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
-        * {
+        * {{
             font-family: 'Inter', sans-serif;
-        }
+        }}
         
-        .stApp {
-            background: linear-gradient(135deg, #0A0F0A 0%, #0D1A0D 100%);
-        }
+        .stApp {{
+            background: {BG_DARK};
+        }}
         
-        section[data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #0A0A0A 0%, #0F1F0F 100%);
-            border-right: 2px solid #2ECC40;
-        }
+        section[data-testid="stSidebar"] {{
+            background: #0D0D0D;
+            border-right: 1px solid {BORDER};
+        }}
         
-        h1, h2, h3, h4, h5, h6 {
-            color: #7CFC00 !important;
-            font-weight: 700 !important;
-        }
-        
-        .stButton>button {
-            background: linear-gradient(135deg, #2ECC40 0%, #1B8C2E 100%) !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 8px !important;
+        h1, h2, h3, h4, h5, h6 {{
+            color: {TEXT_PRIMARY} !important;
             font-weight: 600 !important;
-            padding: 12px 24px !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 4px 12px rgba(46, 204, 64, 0.25);
-        }
+            letter-spacing: -0.5px;
+        }}
         
-        .stButton>button:hover {
-            background: linear-gradient(135deg, #7CFC00 0%, #2ECC40 100%) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(46, 204, 64, 0.4);
-        }
+        h1 {{
+            font-size: 1.8rem !important;
+            border-bottom: 1px solid {BORDER};
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }}
         
-        .stMetric {
-            background: linear-gradient(145deg, #1A2A1A 0%, #0F1F0F 100%);
-            border: 1px solid #2ECC40;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
+        p, label, span, div {{
+            color: {TEXT_PRIMARY} !important;
+        }}
         
-        .stMetric label {
-            color: #AAFFAA !important;
-            font-weight: 600 !important;
-        }
-        
-        .stMetric [data-testid="stMetricValue"] {
-            color: white !important;
-            font-size: 2.2rem !important;
-        }
-        
-        .stDataFrame {
-            background: #111A11;
-            border: 1px solid #2ECC40;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .stDataFrame th {
-            background-color: #1B2E1B !important;
-            color: #7CFC00 !important;
-            font-weight: 600 !important;
-        }
-        
-        .stTextInput input, .stNumberInput input, .stSelectbox div {
-            background-color: #1A2A1A !important;
-            color: white !important;
-            border: 1px solid #2ECC40 !important;
+        .stButton>button {{
+            background: {BG_CARD} !important;
+            color: {TEXT_PRIMARY} !important;
+            border: 1px solid {BORDER} !important;
             border-radius: 6px !important;
-        }
+            font-weight: 500 !important;
+            font-size: 0.9rem !important;
+            padding: 8px 16px !important;
+            transition: all 0.2s ease !important;
+            box-shadow: none !important;
+        }}
         
-        .stTextInput input:focus, .stNumberInput input:focus, .stSelectbox div:focus {
-            border-color: #7CFC00 !important;
-            box-shadow: 0 0 8px rgba(124, 252, 0, 0.3);
-        }
+        .stButton>button:hover {{
+            border-color: {ACCENT} !important;
+            color: {ACCENT} !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.15) !important;
+        }}
         
-        .stTabs [data-baseweb="tab-list"] {
-            background-color: #0F1F0F;
-            border-radius: 10px 10px 0 0;
-            border: 1px solid #2ECC40;
-        }
+        .stButton>button[kind="primary"] {{
+            background: {ACCENT} !important;
+            color: #000 !important;
+            border: 1px solid {ACCENT} !important;
+            font-weight: 600 !important;
+        }}
         
-        .stTabs [aria-selected="true"] {
-            background-color: #2ECC40 !important;
-            color: black !important;
-            border-radius: 8px 8px 0 0;
-        }
+        .stButton>button[kind="primary"]:hover {{
+            background: #38D9F5 !important;
+            box-shadow: 0 4px 16px rgba(34, 211, 238, 0.3) !important;
+        }}
         
-        .streamlit-expanderHeader {
-            background: linear-gradient(135deg, #1B2E1B 0%, #0F1F0F 100%);
-            color: #7CFC00 !important;
-            border: 1px solid #2ECC40;
+        .stMetric {{
+            background: {BG_CARD};
+            border: 1px solid {BORDER};
             border-radius: 8px;
-            font-weight: 600;
-        }
+            padding: 16px;
+        }}
         
-        .streamlit-expanderContent {
-            background-color: #0A0F0A;
-            border: 1px solid #2ECC40;
-            border-radius: 0 0 8px 8px;
-        }
+        .stMetric label {{
+            color: {TEXT_SECONDARY} !important;
+            font-weight: 500 !important;
+            font-size: 0.85rem !important;
+        }}
         
-        .stForm {
-            background: linear-gradient(145deg, #1A2A1A 0%, #0F1F0F 100%);
-            border: 1px solid #2ECC40;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-        }
+        .stMetric [data-testid="stMetricValue"] {{
+            color: {TEXT_PRIMARY} !important;
+            font-size: 1.8rem !important;
+            font-weight: 600 !important;
+        }}
         
-        .stAlert {
+        .stMetric [data-testid="stMetricDelta"] {{
+            color: {ACCENT} !important;
+        }}
+        
+        .stDataFrame {{
+            background: {BG_CARD};
+            border: 1px solid {BORDER};
             border-radius: 8px;
-        }
+            overflow: hidden;
+        }}
         
-        hr {
+        .stDataFrame th {{
+            background: #141414 !important;
+            color: {TEXT_SECONDARY} !important;
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }}
+        
+        .stDataFrame td {{
+            color: {TEXT_PRIMARY} !important;
+            font-size: 0.9rem !important;
+        }}
+        
+        .stTextInput input, .stNumberInput input {{
+            background: {BG_CARD} !important;
+            color: {TEXT_PRIMARY} !important;
+            border: 1px solid {BORDER} !important;
+            border-radius: 6px !important;
+            font-size: 0.9rem !important;
+        }}
+        
+        .stTextInput input:focus, .stNumberInput input:focus {{
+            border-color: {ACCENT} !important;
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.15) !important;
+        }}
+        
+        .stSelectbox > div > div {{
+            background: {BG_CARD} !important;
+            border: 1px solid {BORDER} !important;
+            border-radius: 6px !important;
+        }}
+        
+        .stTabs [data-baseweb="tab-list"] {{
+            background: transparent;
+            border-bottom: 1px solid {BORDER};
+            gap: 0;
+        }}
+        
+        .stTabs [data-baseweb="tab"] {{
+            color: {TEXT_SECONDARY} !important;
+            font-weight: 500 !important;
+            padding: 8px 16px !important;
+            border-radius: 6px 6px 0 0 !important;
+        }}
+        
+        .stTabs [aria-selected="true"] {{
+            background: {BG_CARD} !important;
+            color: {ACCENT} !important;
+            border: 1px solid {BORDER};
+            border-bottom: 1px solid {BG_CARD};
+        }}
+        
+        .streamlit-expanderHeader {{
+            background: {BG_CARD};
+            color: {TEXT_PRIMARY} !important;
+            border: 1px solid {BORDER};
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }}
+        
+        .streamlit-expanderContent {{
+            background: {BG_DARK};
+            border: 1px solid {BORDER};
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+        }}
+        
+        .stForm {{
+            background: {BG_CARD};
+            border: 1px solid {BORDER};
+            border-radius: 8px;
+            padding: 24px;
+        }}
+        
+        .stAlert {{
+            border-radius: 6px;
+        }}
+        
+        .stSuccess {{
+            background: rgba(74, 222, 128, 0.1) !important;
+            border-left: 3px solid {SUCCESS} !important;
+        }}
+        
+        .stWarning {{
+            background: rgba(251, 191, 36, 0.1) !important;
+            border-left: 3px solid {WARNING} !important;
+        }}
+        
+        .stError {{
+            background: rgba(248, 113, 113, 0.1) !important;
+            border-left: 3px solid {DANGER} !important;
+        }}
+        
+        .stInfo {{
+            background: rgba(34, 211, 238, 0.1) !important;
+            border-left: 3px solid {ACCENT} !important;
+        }}
+        
+        hr {{
             border: none;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #2ECC40, transparent);
-            margin: 20px 0;
-        }
+            background: {BORDER};
+            margin: 24px 0;
+        }}
         
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0A0A0A;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2ECC40;
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar {{
+            width: 6px;
+        }}
+        ::-webkit-scrollbar-track {{
+            background: {BG_DARK};
+        }}
+        ::-webkit-scrollbar-thumb {{
+            background: {BORDER};
+            border-radius: 3px;
+        }}
+        ::-webkit-scrollbar-thumb:hover {{
+            background: {PRIMARY};
+        }}
+        
+        .stRadio > div {{
+            gap: 10px;
+        }}
+        
+        .stCheckbox {{
+            color: {TEXT_PRIMARY} !important;
+        }}
+        
+        .stDateInput > div > div {{
+            background: {BG_CARD} !important;
+            border: 1px solid {BORDER} !important;
+            border-radius: 6px !important;
+        }}
+        
+        .stSlider > div > div > div {{
+            background: {ACCENT} !important;
+        }}
     </style>
     """, unsafe_allow_html=True)
 
 def logo_sidebar():
     import os
     if os.path.exists("assets/logo.png"):
-        st.sidebar.image("assets/logo.png", width=200)
+        st.sidebar.image("assets/logo.png", width=180)
     else:
         st.sidebar.markdown("""
-        <div style="text-align:center; padding:20px 0;">
-            <span style="font-size:3rem;">🟢</span>
-            <h2 style="color:#7CFC00; margin:0;">FITCONTROL</h2>
-            <p style="color:#AAFFAA; font-size:0.9rem;">Sistema de Gestão Fitness</p>
+        <div style="text-align:center; padding: 20px 0;">
+            <span style="font-size: 2.5rem;">⚫</span>
+            <h3 style="color:#E5E7EB; margin:5px 0; font-weight:600;">FITCONTROL</h3>
+            <p style="color:#9CA3AF; font-size:0.8rem;">Gestão Fitness</p>
         </div>
         """, unsafe_allow_html=True)
 
 def rodape():
     st.sidebar.markdown("---")
     st.sidebar.markdown("""
-    <div style="text-align:center; color:#7CFC00; padding:10px;">
-        <small>© 2026 FitControl</small><br>
-        <small style="color:#AAFFAA;">v2.0 Profissional</small>
+    <div style="text-align:center; padding:10px;">
+        <small style="color:#9CA3AF;">© 2026 FitControl</small><br>
+        <small style="color:#6B7280;">v2.0</small>
     </div>
     """, unsafe_allow_html=True)
